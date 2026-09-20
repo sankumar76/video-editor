@@ -1,0 +1,76 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--bg-panel);
+}
+
+.stage {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: #000;
+  overflow: hidden;
+}
+
+.canvas {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.safeArea {
+  position: absolute;
+  pointer-events: none;
+  border: 1px dashed rgba(255, 255, 255, 0.4);
+}
+
+.safeAreaInner {
+  position: absolute;
+  pointer-events: none;
+  border: 1px dashed rgba(255, 255, 255, 0.25);
+}
+
+.controls {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.button {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  min-width: 28px;
+}
+
+.button:hover {
+  border-color: var(--accent);
+  color: var(--accent-hover);
+}
+
+.buttonActive {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(91, 140, 255, 0.12);
+}
+
+.timecode {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-primary);
+  margin-left: auto;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

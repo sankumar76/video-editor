@@ -1,14 +1,17 @@
-import { app, BrowserWindow, ipcMain, Menu, session, shell } from 'electron'
+import { app, BrowserWindow, dialog, ipcMain, Menu, session, shell } from 'electron'
 import path from 'node:path'
 import { loadWindowState, trackWindowState } from './windowState'
 import { getFfmpegDiagnostics, getFfprobeDiagnostics } from './ffmpeg'
+import { getProjectSyncState, registerAppIpcHandlers } from './ipc'
+import { addRecentProject, saveProjectFile } from './project/persistence'
+import { DEV_PROJECT_ROOT } from './devRoot'
 import type { AppDiagnostics } from '@core'
 
 function getIconPath(): string {
   const file = process.platform === 'win32' ? 'icon.ico' : 'icon.png'
   return app.isPackaged
     ? path.join(process.resourcesPath, file)
-    : path.join(app.getAppPath(), 'resources', file)
+    : path.join(DEV_PROJECT_ROOT, 'resources', file)
 }
 
 function applyContentSecurityPolicy(): void {
@@ -33,10 +36,10 @@ function applyContentSecurityPolicy(): void {
 function getThirdPartyLicensesPath(): string {
   return app.isPackaged
     ? path.join(process.resourcesPath, 'THIRD_PARTY_LICENSES.txt')
-    : path.join(app.getAppPath(), 'THIRD_PARTY_LICENSES.txt')
+    : path.join(DEV_PROJECT_ROOT, 'THIRD_PARTY_LICENSES.txt')
 }
 
-function registerIpcHandlers(): void {
+function registerDiagnosticsIpcHandlers(): void {
   ipcMain.handle('app:get-diagnostics', async (): Promise<AppDiagnostics> => {
     const [ffmpeg, ffprobe] = await Promise.all([getFfmpegDiagnostics(), getFfprobeDiagnostics()])
     return {
@@ -54,6 +57,51 @@ function registerIpcHandlers(): void {
   ipcMain.handle('app:open-third-party-licenses', async (): Promise<void> => {
     const result = await shell.openPath(getThirdPartyLicensesPath())
     if (result) throw new Error(result)
+  })
+}
+
+async function saveFromSyncedSnapshot(window: BrowserWindow): Promise<boolean> {
+  const state = getProjectSyncState()
+  if (!state.project) return true
+  let filePath = state.filePath
+  if (!filePath) {
+    const result = await dialog.showSaveDialog(window, {
+      title: 'Save Project',
+      defaultPath: `${state.project.name}.cutline`,
+      filters: [{ name: 'Cutline Project', extensions: ['cutline'] }]
+    })
+    if (result.canceled || !result.filePath) return false
+    filePath = result.filePath
+  }
+  await saveProjectFile(filePath, state.project)
+  await addRecentProject({ filePath, name: state.project.name, lastOpenedMs: Date.now() })
+  return true
+}
+
+/** Prompts to save before closing a window with unsynced project changes (spec section 6). */
+function attachUnsavedChangesGuard(window: BrowserWindow): void {
+  let allowClose = false
+  window.on('close', (event) => {
+    if (allowClose) return
+    if (!getProjectSyncState().isDirty) return
+    event.preventDefault()
+    void (async () => {
+      const { response } = await dialog.showMessageBox(window, {
+        type: 'warning',
+        buttons: ['Save', "Don't Save", 'Cancel'],
+        defaultId: 0,
+        cancelId: 2,
+        message: 'Save changes to your project before closing?',
+        detail: "Your changes will be lost if you don't save them."
+      })
+      if (response === 2) return
+      if (response === 0) {
+        const saved = await saveFromSyncedSnapshot(window)
+        if (!saved) return
+      }
+      allowClose = true
+      window.close()
+    })()
   })
 }
 
@@ -84,6 +132,8 @@ function createWindow(): BrowserWindow {
   })
 
   trackWindowState(window)
+  attachUnsavedChangesGuard(window)
+  registerAppIpcHandlers(window)
 
   window.webContents.setWindowOpenHandler(({ url }) => {
     void shell.openExternal(url)
@@ -116,7 +166,7 @@ if (!gotSingleInstanceLock) {
   void app.whenReady().then(() => {
     Menu.setApplicationMenu(null)
     applyContentSecurityPolicy()
-    registerIpcHandlers()
+    registerDiagnosticsIpcHandlers()
     mainWindow = createWindow()
   })
 

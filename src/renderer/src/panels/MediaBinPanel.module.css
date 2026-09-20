@@ -1,0 +1,147 @@
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px;
+  border-bottom: 1px solid var(--border-subtle);
+  flex: 0 0 auto;
+}
+
+.search {
+  flex: 1 1 80px;
+  min-width: 0;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+.button {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.button:hover {
+  border-color: var(--accent);
+  color: var(--accent-hover);
+}
+
+.dropZone {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 6px;
+}
+
+.dropZoneActive {
+  outline: 2px dashed var(--accent);
+  outline-offset: -4px;
+  background: rgba(91, 140, 255, 0.08);
+}
+
+.empty {
+  color: var(--text-secondary);
+  font-size: 12px;
+  padding: 24px 12px;
+  text-align: center;
+}
+
+.item {
+  display: flex;
+  gap: 8px;
+  padding: 6px;
+  border-radius: 4px;
+  cursor: grab;
+  align-items: center;
+}
+
+.item:hover {
+  background: var(--bg-panel-raised);
+}
+
+.itemSelected {
+  background: rgba(91, 140, 255, 0.15);
+}
+
+.thumb {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 36px;
+  background: #000;
+  border-radius: 3px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 10px;
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.name {
+  font-size: 12px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meta {
+  font-size: 11px;
+  color: var(--text-secondary);
+  display: flex;
+  gap: 6px;
+}
+
+.progressTrack {
+  height: 3px;
+  background: var(--border-subtle);
+  border-radius: 2px;
+  margin-top: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--accent);
+}
+
+.status {
+  font-size: 10px;
+}
+
+.statusError {
+  color: var(--danger);
+}
+
+.deleteButton {
+  flex: 0 0 auto;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px 6px;
+}
+
+.deleteButton:hover {
+  color: var(--danger);
+}

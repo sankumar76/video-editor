@@ -1,0 +1,25 @@
+.ruler {
+  position: relative;
+  background: var(--bg-panel-raised);
+  border-bottom: 1px solid var(--border-subtle);
+  cursor: pointer;
+  user-select: none;
+}
+
+.tick {
+  position: absolute;
+  bottom: 0;
+  width: 1px;
+  height: 6px;
+  background: var(--text-secondary);
+}
+
+.label {
+  position: absolute;
+  top: 2px;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  transform: translateX(2px);
+}

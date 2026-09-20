@@ -2,11 +2,12 @@ import { app } from 'electron'
 import { spawn } from 'node:child_process'
 import path from 'node:path'
 import type { BinaryDiagnostic } from '@core'
+import { DEV_PROJECT_ROOT } from './devRoot'
 
 function resolveBinaryPath(devParts: string[], packagedParts: string[]): string {
   return app.isPackaged
     ? path.join(process.resourcesPath, ...packagedParts)
-    : path.join(app.getAppPath(), ...devParts)
+    : path.join(DEV_PROJECT_ROOT, ...devParts)
 }
 
 /** Dev resolves from node_modules; packaged builds resolve from extraResources (see electron-builder.yml). */

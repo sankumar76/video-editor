@@ -1,12 +1,9 @@
 /// <reference types="vite/client" />
-import type { AppDiagnostics } from '@core'
+import type { CutlineApi } from '../../preload'
 
 declare global {
   interface Window {
-    cutline: {
-      getDiagnostics: () => Promise<AppDiagnostics>
-      openThirdPartyLicenses: () => Promise<void>
-    }
+    cutline: CutlineApi
   }
 }
 

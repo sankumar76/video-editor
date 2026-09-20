@@ -2,7 +2,7 @@
 
 A Windows desktop video editor. See [SPEC.md](SPEC.md) for the full product and build spec, [PROGRESS.md](PROGRESS.md) for milestone status, and [DECISIONS.md](DECISIONS.md) for choices made where the spec left things open.
 
-Currently at **M0: scaffold and the exe pipeline**.
+Currently at **M1: media and timeline MVP** — import media, arrange clips across video/audio tracks, trim/split/undo/redo, save/open `.cutline` projects, and export to MP4.
 
 ## Requirements
 
@@ -81,3 +81,4 @@ Remove-Item Env:\ELECTRON_RUN_AS_NODE -ErrorAction SilentlyContinue
 
 - FFmpeg/FFprobe are resolved from `node_modules` in dev and from the packaged app's `resources/ffmpeg/` folder (via `extraResources`) in the built exe — see `src/main/ffmpeg.ts`.
 - The bundled FFmpeg build includes `libx264`/`libx265` and is therefore GPLv3-licensed; see `THIRD_PARTY_LICENSES.txt` (also reachable from the in-app About dialog).
+- `tests/fixtures/` holds small synthetic test media (H.264, HEVC, VFR, audio-only, image, portrait-rotated) generated with FFmpeg's `testsrc`/`sine` sources — no downloaded assets. Regenerate with `node_modules/ffmpeg-static/ffmpeg.exe` if needed; see the commands used in `DECISIONS.md`'s M1 section for reference.

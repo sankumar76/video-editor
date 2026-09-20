@@ -1,0 +1,56 @@
+.scrollContainer {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  position: relative;
+}
+
+.grid {
+  display: grid;
+  position: relative;
+}
+
+.corner {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  background: var(--bg-panel-raised);
+  border-bottom: 1px solid var(--border-subtle);
+  border-right: 1px solid var(--border-subtle);
+}
+
+.rulerCell {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.playhead {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--danger);
+  z-index: 4;
+  pointer-events: none;
+}
+
+.playheadHandle {
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 7px solid var(--danger);
+  transform: translateX(-5px);
+}
+
+.marquee {
+  position: absolute;
+  border: 1px solid var(--accent);
+  background: rgba(91, 140, 255, 0.15);
+  z-index: 5;
+  pointer-events: none;
+}

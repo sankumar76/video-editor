@@ -44,3 +44,81 @@
   border-color: var(--accent);
   color: var(--accent-hover);
 }
+
+.button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.button:disabled:hover {
+  border-color: var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.divider {
+  width: 1px;
+  align-self: stretch;
+  margin: 6px 2px;
+  background: var(--border-subtle);
+}
+
+.menuWrap {
+  position: relative;
+  display: flex;
+}
+
+.caretButton {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-left: none;
+  color: var(--text-secondary);
+  border-radius: 0 4px 4px 0;
+  padding: 4px 6px;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.menuWrap .button {
+  border-radius: 4px 0 0 4px;
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 220px;
+  max-height: 280px;
+  overflow-y: auto;
+  background: var(--bg-panel-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 50;
+  padding: 4px;
+}
+
+.menuItem {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 12px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.menuItem:hover {
+  background: var(--bg-panel);
+}
+
+.menuEmpty {
+  color: var(--text-secondary);
+  font-size: 12px;
+  padding: 6px 8px;
+}

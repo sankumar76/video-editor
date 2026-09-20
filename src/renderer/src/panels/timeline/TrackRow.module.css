@@ -1,0 +1,64 @@
+.header {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border-subtle);
+  border-right: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px;
+  overflow: hidden;
+}
+
+.name {
+  flex: 1 1 auto;
+  font-size: 12px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: text;
+}
+
+.toggle {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+  line-height: 1;
+  border: 1px solid var(--border-subtle);
+  background: transparent;
+  color: var(--text-secondary);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.toggleActive {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(91, 140, 255, 0.15);
+}
+
+.toggleDanger.toggleActive {
+  border-color: var(--danger);
+  color: var(--danger);
+  background: rgba(224, 92, 92, 0.15);
+}
+
+.area {
+  position: relative;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-panel);
+}
+
+.areaLocked {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.02) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}

@@ -34,7 +34,7 @@ export default function AboutDialog(): ReactElement {
 
   useEffect(() => {
     let cancelled = false
-    window.cutline
+    window.cutline.app
       .getDiagnostics()
       .then((diagnostics) => {
         if (!cancelled) setState({ status: 'ready', diagnostics })
@@ -109,7 +109,7 @@ export default function AboutDialog(): ReactElement {
             type="button"
             className={styles.button}
             onClick={() => {
-              window.cutline.openThirdPartyLicenses().catch(() => undefined)
+              window.cutline.app.openThirdPartyLicenses().catch(() => undefined)
             }}
           >
             Third-party licenses
