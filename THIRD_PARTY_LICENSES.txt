@@ -1,0 +1,42 @@
+Cutline bundles the following third-party components.
+
+--------------------------------------------------------------------------------
+FFmpeg / FFprobe
+--------------------------------------------------------------------------------
+Cutline bundles a static Windows build of FFmpeg (which includes FFprobe),
+built by gyan.dev (https://www.gyan.dev/ffmpeg/builds/), distributed via the
+npm packages `ffmpeg-static` and `ffprobe-static`.
+
+This build includes libx264 and libx265 and is therefore licensed under the
+GNU General Public License version 3 (GPLv3). Full license text:
+https://www.gnu.org/licenses/gpl-3.0.html
+
+FFmpeg source code: https://github.com/FFmpeg/FFmpeg
+FFmpeg project: https://ffmpeg.org
+
+--------------------------------------------------------------------------------
+Electron
+--------------------------------------------------------------------------------
+Copyright (c) Electron contributors
+Copyright (c) 2013-2020 GitHub Inc.
+Licensed under the MIT License.
+https://github.com/electron/electron/blob/main/LICENSE
+
+--------------------------------------------------------------------------------
+React
+--------------------------------------------------------------------------------
+Copyright (c) Meta Platforms, Inc. and affiliates.
+Licensed under the MIT License.
+
+--------------------------------------------------------------------------------
+Zustand
+--------------------------------------------------------------------------------
+Copyright (c) 2019 Paul Henschel
+Licensed under the MIT License.
+
+--------------------------------------------------------------------------------
+Other build/development tooling (Vite, electron-vite, electron-builder,
+TypeScript, ESLint, Prettier, Vitest, Playwright) is used only to build and
+test Cutline and is not distributed inside the packaged application, except
+where noted above. Each is used under its respective open-source license
+(MIT or Apache-2.0). See each project's repository for full license text.
